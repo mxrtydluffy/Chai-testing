@@ -8,6 +8,13 @@ const Message = require('../models/message')
 router.get('/', (req, res) => {
     // TODO: Get all Message objects using `.find()`
 
+    Message.find().then((messages) => {
+        return res.json({messages})
+    })
+    .catch((err) => {
+        throw err.message
+    });
+
     // TODO: Return the Message objects as a JSON list
 })
 
@@ -15,6 +22,13 @@ router.get('/', (req, res) => {
 router.get('/:messageId', (req, res) => {
     // TODO: Get the Message object with id matching `req.params.id`
     // using `findOne`
+
+    Message.findOne({_id: req.params.messageId})
+    .then(result => {
+        res.json(result)
+    }).catch(err => {
+        throw err.message
+    })
 
     // TODO: Return the matching Message object as JSON
 })
